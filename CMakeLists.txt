@@ -9,15 +9,18 @@ message("${PROJECT_SOURCE_DIR}")
 
 set(CMAKE_CXX_STANDARD 17)
 
+# Add SDL2
+find_package(SDL2 REQUIRED)
+message("${SDL2_INCLUDE_DIR} added to include directories")
+include_directories(${SDL2_INCLUDE_DIRS})
+
 # is this necessary? -- YES, otherwise the libs wont be found!
 add_subdirectory(core)
 add_subdirectory(Materials)
 add_subdirectory(Shapes)
 
-# Add SDL2
-find_package(SDL2 REQUIRED)
-message("${SDL2_INCLUDE_DIR} added to include directories")
-include_directories(${SDL2_INCLUDE_DIRS})
+enable_testing()
+add_subdirectory(tests)
 
 # need to include the main project dir
 include_directories(${CMAKE_SOURCE_DIR})

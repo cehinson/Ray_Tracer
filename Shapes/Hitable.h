@@ -13,7 +13,7 @@ namespace ch {
 		float t = 0.0f; // parameter t at which Ray A + tB hit
 		Vec3<> p; // p = A + tB
 		Vec3<> normal; // nommal to the surface p is on for shading
-		Material *material_ptr = nullptr; // TODO: switch to smart pointer
+		Material *material_ptr = nullptr;
 	};
 
 	class Hitable

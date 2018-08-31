@@ -14,13 +14,11 @@ namespace ch {
 			Vec3(T x, T y, T z) noexcept : x{ x }, y{ y }, z{ z } {}
 			Vec3() noexcept : x{0}, y{0}, z{0} {}
 
-			// untested
 			T& operator [](int i)
 			{
 				return ((&x)[i]);
 			}
 
-			// untested
 			const T& operator [](int i) const
 			{
 				return ((&x)[i]);

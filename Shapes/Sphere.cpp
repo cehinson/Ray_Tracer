@@ -24,7 +24,7 @@ namespace ch {
 				rec.t = temp;
 				rec.p = r.point_at_t(rec.t);
 				rec.normal = (rec.p - center) / radius; 
-				rec.material_ptr = mat_ptr.get(); // TODO: is this right?
+				rec.material_ptr = mat_ptr.get();
 				return true;
 			}
 			temp = (-b + sqrt(b*b - a * c)) / a;
@@ -33,7 +33,7 @@ namespace ch {
 				rec.t = temp;
 				rec.p = r.point_at_t(rec.t);
 				rec.normal = (rec.p - center) / radius; 
-				rec.material_ptr = mat_ptr.get(); // TODO: is this right?
+				rec.material_ptr = mat_ptr.get();
 				return true;
 			}
 		}

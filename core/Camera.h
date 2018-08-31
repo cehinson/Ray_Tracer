@@ -18,6 +18,7 @@ namespace ch {
 	public:
 		Camera() = default;
 
+		// TODO: Get rid of M_PI
 		Camera(Vec3<> look_from, Vec3<> look_at, Vec3<> view_up, float vfov, float aspect, float aperture, float focus_distance) // vfov is top to bottom in degrees
 		{
 			lens_radius = aperture / 2;

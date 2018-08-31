@@ -5,7 +5,6 @@
 
 namespace ch {
 
-	// TODO: Add destructor
 	class Sphere : public Hitable
 	{
 		Vec3<> center;

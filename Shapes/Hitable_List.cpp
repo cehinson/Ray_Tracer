@@ -4,7 +4,7 @@ namespace ch {
 
 	void Hitable_List::add(std::unique_ptr<Hitable> hitable_ptr)
 	{
-		h_list.push_back(std::move(hitable_ptr)); // TODO: Is this okay? does it need move?
+		h_list.push_back(std::move(hitable_ptr));
 	}
 
 	bool Hitable_List::hit_any(const Ray& r, float t_min, float t_max, hit_record & rec) const
