@@ -25,6 +25,6 @@ add_subdirectory(tests)
 # need to include the main project dir
 include_directories(${CMAKE_SOURCE_DIR})
 
-add_executable(ray_tracer main.cpp)
+add_executable(ray_tracer main.cpp ScreenManager.h ScreenManager.cpp)
 
 target_link_libraries(ray_tracer PRIVATE ${SDL2_LIBRARIES} core materials shapes)

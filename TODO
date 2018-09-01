@@ -1,0 +1,37 @@
+
+Ray_Tracer:
+  ☐ Consider adding parallel algorithms
+  ☐ Redo CMake build
+  ✔ Write a class to handle SDL2 resources automatically (RAII) @done(18-09-01 23:27)
+
+  Core:
+
+    Vec3:
+      ☐ Add testing to Vec3
+
+    Ray:
+      ☐ Add testing to Ray
+
+    MyRandom:
+      ☐ Add Testing to MyRandom
+
+    Camera:
+      ☐ Add Testing to Camera
+
+  Materials:
+
+    Dialectric:
+       ☐ Test Schlick()
+       ☐ Test Refract()
+
+    Lambertian:
+      ☐ Test Lambertian::Scatter()
+    
+    Metal:
+      ☐ Test Metal::Scatter()
+      ☐ Test Metal::Reflect()
+
+  Shapes:
+
+    Sphere:
+      ☐ Test Hit()
