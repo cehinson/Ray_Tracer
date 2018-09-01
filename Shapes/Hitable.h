@@ -1,7 +1,7 @@
 #pragma once
 
-#include "core/Vec3.h"
-#include "core/Ray.h"
+#include "Core/Vec3.h"
+#include "Core/Ray.h"
 
 namespace ch {
 

@@ -4,9 +4,9 @@
 #include <string>
 #include <cfloat>
 
-#include "core/Ray.h"
-#include "core/Vec3.h"
-#include "core/Camera.h"
+#include "Core/Ray.h"
+#include "Core/Vec3.h"
+#include "Core/Camera.h"
 
 namespace ch {
 
@@ -21,7 +21,6 @@ namespace ch {
 		PPM() noexcept;
 		PPM(const std::string& fn, const size_t& cols, const size_t& rows);
 		void write(Vec3<>* pixels[]);
-
 	};
 
 } // namespace ch

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/MyRandom.h"
+#include "Core/MyRandom.h"
 #include "Shapes/Hitable.h"
 
 namespace ch {
