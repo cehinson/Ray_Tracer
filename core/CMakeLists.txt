@@ -12,6 +12,7 @@ add_library(
     Vec3.h
     MyRandom.h
     MyRandom.cpp
+    MyMathConstants.h
     Ray.h
     Camera.h
 )

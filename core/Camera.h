@@ -1,9 +1,7 @@
 #pragma once
 
-#define _USE_MATH_DEFINES
-#include <math.h>
-
 #include "MyRandom.h"
+#include "MyMathConstants.h"
 #include "Ray.h"
 
 namespace ch
@@ -18,11 +16,13 @@ class Camera
   public:
 	Camera() = default;
 
-	// TODO: Get rid of M_PI
 	Camera(Vec3<> look_from, Vec3<> look_at, Vec3<> view_up, float vfov, float aspect, float aperture, float focus_distance) // vfov is top to bottom in degrees
 	{
 		lens_radius = aperture / 2;
-		const float theta = vfov * M_PI / 180.0f;
+
+		using namespace ch::constants; // compile time pi
+		
+		const float theta = vfov * pi<float>() / 180.0f;
 		const float half_height = tan(theta / 2);
 		const float half_width = aspect * half_height;
 
