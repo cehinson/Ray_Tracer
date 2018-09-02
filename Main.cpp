@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
 
 	for (size_t row = nr - 1; row > 0; row--)
 	{
+		// TODO: Try parallel here:
 		for (size_t col = 0; col < nc; col++)
 		{
 			auto rgb = trace(&world, camera, row, col, nr, nc);
