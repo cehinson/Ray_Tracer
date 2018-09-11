@@ -3,11 +3,11 @@
 namespace ch
 {
 
-ScreenManager::ScreenManager()
+ScreenManager::ScreenManager(size_t rows, size_t cols) : nr{rows},
+														 nc{cols}
 {
 	// SETUP SDL
 	sdl_check(SDL_Init(SDL_INIT_VIDEO) != -1);
-
 	window = SDL_CreateWindow("Ray Tracer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, nc, nr, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
 	renderer = SDL_CreateRenderer(window, -1, 0);
 	// Draw a black screen to clear the screen
@@ -21,6 +21,7 @@ ScreenManager::ScreenManager()
 
 ScreenManager::~ScreenManager()
 {
+	std::cout << "ScreenManager Destructor called\n";
 	SDL_DestroyTexture(texture);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -28,7 +29,8 @@ ScreenManager::~ScreenManager()
 
 void ScreenManager::render()
 {
-    SDL_UpdateTexture(texture, NULL, screen->pixels, screen->pitch);
+	std::cout << "render() called\n";
+	SDL_UpdateTexture(texture, NULL, screen->pixels, screen->pitch);
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture, NULL, NULL);
 	SDL_RenderPresent(renderer);
@@ -36,17 +38,26 @@ void ScreenManager::render()
 
 void ScreenManager::save()
 {
-   	SDL_SaveBMP(screen, "Output.bmp"); 
+	SDL_SaveBMP(screen, "Output.bmp");
+}
+
+void ScreenManager::put_pixels(int row, std::vector<Vec3<>> col)
+{
+	std::cout << "put_pixels() called\n";
+	for (size_t i = 0; i < col.size(); i++)
+	{
+		put_pixel(i, row, col[i]);
+	}
 }
 
 void ScreenManager::put_pixel(int x, int y, Vec3<> v)
 {
-    const auto r = static_cast<int>(255.99f * v.x);
+	const auto r = static_cast<int>(255.99f * v.x);
 	const auto g = static_cast<int>(255.99f * v.y);
 	const auto b = static_cast<int>(255.99f * v.z);
 	auto pixel = SDL_MapRGB(screen->format, (Uint8)r, (Uint8)g, (Uint8)b);
 
-    assert(screen->format->BytesPerPixel == 4);
+	assert(screen->format->BytesPerPixel == 4);
 	auto pixel_address = reinterpret_cast<uint32_t *>(screen->pixels) + y * screen->w + x;
 	*pixel_address = pixel;
 }

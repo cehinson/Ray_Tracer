@@ -60,6 +60,12 @@ class Vec3
 };
 
 template <typename T>
+inline bool operator==(const Vec3<T> &v1, const Vec3<T> &v2)
+{
+	return (v1.x == v2.x) && (v1.y == v2.y) && (v1.z == v2.z);
+}
+
+template <typename T>
 inline Vec3<T> operator+(const Vec3<T> &v1, const Vec3<T> &v2)
 {
 	return Vec3<T>{v1.x + v2.x, v1.y + v2.y, v1.z + v2.z};

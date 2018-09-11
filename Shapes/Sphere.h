@@ -18,6 +18,7 @@ class Sphere : public Hitable
 	Sphere(Vec3<> cen, float r, std::unique_ptr<Material> mat);
 
 	// Inherited via Hitable
+	std::pair<bool, hit_record> hit_2(const Ray &r, float t_min, float t_max) const override;
 	bool hit(const Ray &r, float t_min, float t_max, hit_record &rec) const override;
 };
 

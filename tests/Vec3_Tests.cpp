@@ -15,4 +15,3 @@ TEST_CASE("Vec3 operators work", "[Vec3]")
         REQUIRE(v1[2] == 3);
     }
 }
-

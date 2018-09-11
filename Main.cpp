@@ -1,15 +1,10 @@
-// #include "Common.h"
-// #include "PPM.h"
 #include "ScreenManager.h"
-
 #include "Core/Camera.h"
 #include "Core/Vec3.h"
 #include "Core/MyRandom.h"
-
 #include "Shapes/Hitable.h"
 #include "Shapes/Hitable_List.h"
 #include "Shapes/Sphere.h"
-
 #include "Materials/Material.h"
 #include "Materials/Lambertian.h"
 #include "Materials/Metal.h"
@@ -27,22 +22,22 @@ int main(int argc, char *argv[])
 	using namespace ch;
 
 	// SETUP WORLD
-	constexpr size_t nr = 150; // rows
-	constexpr size_t nc = 200; // cols
+	constexpr size_t nr = 200; // rows
+	constexpr size_t nc = 300; // cols
 
 	const ch::Vec3<> look_from{17, 5, 3}; //{ 13, 2, 3 };
 	const ch::Vec3<> look_at{0, 0, 0};
 	constexpr float dist_to_focus = 10.0f; //magnitude(look_from - look_at);
 	constexpr float aperture = 0.1f;
+	const Camera camera {look_from, look_at, Vec3<>{0, 1, 0}, 45, float(nc) / float(nr), aperture, dist_to_focus};
+	// const Camera camera{look_from, look_at, Vec3<>{0, 1, 0}, 45, float(nr) / float(nc), aperture, dist_to_focus};
 
-	const Camera camera{look_from, look_at, ch::Vec3<>{0, 1, 0}, 45, float(nr) / float(nc), aperture, dist_to_focus};
 	auto world = generate_random_scene();
 
-	ScreenManager SM{};
+	ScreenManager SM{nr, nc};
 
 	for (size_t row = nr - 1; row > 0; row--)
 	{
-		// TODO: Try parallel here:
 		for (size_t col = 0; col < nc; col++)
 		{
 			auto rgb = trace(&world, camera, row, col, nr, nc);
@@ -130,9 +125,11 @@ Vec3<> trace(Hitable_List *hitables, const Camera &cam, const size_t &row, const
 
 Vec3<> color(const Ray &r, Hitable_List *world, int depth)
 {
-	hit_record rec;
+	// hit_record rec;
 
-	if (world->hit_any(r, 0.001f, FLT_MAX, rec)) // not 0.0 to solve "shadow acne" problem
+	// if (world->hit_any(r, 0.001f, FLT_MAX, rec)) // not 0.0 to solve "shadow acne" problem
+	auto [hit_world, rec] = world->hit_any_2(r, 0.001f, FLT_MAX);
+	if(hit_world)
 	{
 		Ray scattered;
 		Vec3<> attenuation;

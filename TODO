@@ -1,5 +1,7 @@
 
 Ray_Tracer:
+  ☐ Add timing
+  ☐ Add logging
   ☐ Consider adding parallel algorithms
   ☐ Redo CMake build
   ✔ Write a class to handle SDL2 resources automatically (RAII) @done(18-09-01 23:27)

@@ -9,7 +9,7 @@ include_directories(${RayTracer_SOURCE_DIR})
 find_package(Catch2 REQUIRED)
 
 # Dunno if this is necessary
-add_executable (rt_tests Ray_Tracer_Tests.cpp Vec3_Tests.cpp)
+add_executable (rt_tests Ray_Tracer_Tests.cpp Vec3_Tests.cpp Camera_Tests.cpp)
 
 target_link_libraries(
     rt_tests 

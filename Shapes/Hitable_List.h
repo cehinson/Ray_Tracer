@@ -15,6 +15,7 @@ class Hitable_List
 	Hitable_List() = default;
 
 	void add(std::unique_ptr<Hitable> hitable_ptr);
+	std::pair<bool, hit_record> hit_any_2(const Ray& r, float t_min, float t_max) const;
 	bool hit_any(const Ray &r, float t_min, float t_max, hit_record &rec) const;
 };
 
