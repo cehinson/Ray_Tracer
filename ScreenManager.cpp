@@ -8,32 +8,28 @@ ScreenManager::ScreenManager(size_t rows, size_t cols) : nr{rows},
 {
 	// SETUP SDL
 	sdl_check(SDL_Init(SDL_INIT_VIDEO) != -1);
-	window = SDL_CreateWindow("Ray Tracer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, nc, nr, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
-	renderer = SDL_CreateRenderer(window, -1, 0);
+	window = std::shared_ptr<SDL_Window>(SDL_CreateWindow("Ray Tracer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, nc, nr, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL), window_deleter{});
+	renderer = std::shared_ptr<SDL_Renderer>(SDL_CreateRenderer(window.get(), -1, 0), renderer_deleter{});
 	// Draw a black screen to clear the screen
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderClear(renderer);
-	SDL_RenderPresent(renderer);
+	SDL_SetRenderDrawColor(renderer.get(), 0, 0, 0, 255);
+	SDL_RenderClear(renderer.get());
+	SDL_RenderPresent(renderer.get());
 
 	screen = SDL_CreateRGBSurface(0, nc, nr, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
-	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_STREAMING, nc, nr);
+	texture = std::shared_ptr<SDL_Texture>(SDL_CreateTexture(renderer.get(), SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_STREAMING, nc, nr),texture_deleter{});
 }
 
 ScreenManager::~ScreenManager()
 {
-	std::cout << "ScreenManager Destructor called\n";
-	SDL_DestroyTexture(texture);
-	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
 
 void ScreenManager::render()
 {
-	std::cout << "render() called\n";
-	SDL_UpdateTexture(texture, NULL, screen->pixels, screen->pitch);
-	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, texture, NULL, NULL);
-	SDL_RenderPresent(renderer);
+	SDL_UpdateTexture(texture.get(), NULL, screen->pixels, screen->pitch);
+	SDL_RenderClear(renderer.get());
+	SDL_RenderCopy(renderer.get(), texture.get(), NULL, NULL);
+	SDL_RenderPresent(renderer.get());
 }
 
 void ScreenManager::save()
@@ -43,7 +39,6 @@ void ScreenManager::save()
 
 void ScreenManager::put_pixels(int row, std::vector<Vec3<>> col)
 {
-	std::cout << "put_pixels() called\n";
 	for (size_t i = 0; i < col.size(); i++)
 	{
 		put_pixel(i, row, col[i]);
